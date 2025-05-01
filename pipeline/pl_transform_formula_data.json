@@ -1,0 +1,134 @@
+{
+	"name": "pl_transform_formula_data",
+	"properties": {
+		"activities": [
+			{
+				"name": "transform_race_results",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Formula1/trans/1.race_results",
+					"baseParameters": {
+						"p_file_date": {
+							"value": "@pipeline().parameters.p_window_end_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ws",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "transform_driver_standing",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "transform_race_results",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Formula1/trans/2.driver_standing",
+					"baseParameters": {
+						"p_file_date": {
+							"value": "@pipeline().parameters.p_window_end_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ws",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "transform_constructors_standing",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "transform_race_results",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Formula1/trans/3.constructor_standing",
+					"baseParameters": {
+						"p_file_date": {
+							"value": "@pipeline().parameters.p_window_end_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ws",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "transform_calculate_race_results",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Formula1/trans/4.create_race_results",
+					"baseParameters": {
+						"p_file_date": {
+							"value": "@pipeline().parameters.p_window_end_date",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_ws",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"concurrency": 1,
+		"parameters": {
+			"p_window_end_date": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-05-01T15:18:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
