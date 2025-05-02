@@ -9,6 +9,8 @@ FORMULA1_DE_PROJECT
     ├── analysis 
     ├── dataset
     ├── includes
+        ├── common_funtions.py : useful functions 
+        └── configuration.py: the configuration of path files for this project
     ├── ingestion
     ├── raw
     ├── set-up
@@ -153,8 +155,6 @@ The Data factory advantages:
 
 
 ### Technologies/ Tools used
-
-* Technologies/Tools Used:
 * Pyspark
 * Spark SQL
 * Delta Lake
