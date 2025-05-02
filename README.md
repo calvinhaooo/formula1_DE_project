@@ -1,5 +1,7 @@
 # formula1_DE_project
-This is a ETL project for formula1 database. The programming language icnludes python, sql.
+This is a ETL project for formula1 database. The programming language icnludes python, sql. The main purpose of this project is to build a ETL pipeline to process formula1 data from API source. In addition, the third-party tool can be used to visualize the final data. The project is mainly based on Azure tools, such as storage, key valut, ADLS Gen2, databricks and Data Factory.
+
+
 ## The structure of project repository
 
 ```
@@ -39,24 +41,6 @@ We will only use 8 tables:
 | pit stops     | json file        |   Yes         |raceId, driverId and stop|
 | qualifying    | folder json files|   Yes         |qualifyId                |
 | results       | csv file         |   Yes         |resultId                 |
-### 1. Non-incremental data
-```circuits:``` --> csv file, primary key: circuitId
-
-```races``` --> csv file, primary key: raceId
-
-```constructors``` --> json file, primary key: constructorId
-
-```drivers``` --> json file, primary key: driverId
-
-### 2. Incremental data
-```lap times``` --> folder csv files, primary key: raceId, driverId and lap
-
-```pit stops``` --> json file, primary key: raceId, driverId and stop
-
-```qualifying```--> folder json files, primary key: qualifyId
-
-``` results``` --> csv file, primary key: resultId
-
 
 ### spark architecture 
 
